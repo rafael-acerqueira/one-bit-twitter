@@ -96,7 +96,7 @@ RSpec.describe "Api::V1::Tweets", type: :request do
 
   describe 'POST /api/v1/tweets' do
     context 'Unauthenticated' do
-      it_behaves_like :deny_without_authorization, :put, '/api/v1/users/-1'
+      it_behaves_like :deny_without_authorization, :post, '/api/v1/tweets'
     end
 
     context 'Authenticated' do
@@ -231,5 +231,5 @@ RSpec.describe "Api::V1::Tweets", type: :request do
         it { expect(response).to have_http_status(:forbidden) }
       end
     end
-  end  
+  end
 end
