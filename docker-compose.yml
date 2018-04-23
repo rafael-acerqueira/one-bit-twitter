@@ -25,8 +25,19 @@ services:
     volumes:
       - .:/onebittwitter
       - app-gems:/app-gems
+    environment:
+      ELASTICSEARCH_URL: elasticsearch:9200      
 
+  elasticsearch:
+    image: "elasticsearch:5"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
+    environment:
+      - Des.network.host=0.0.0.0
 volumes:
   redis:
   postgres:
   app-gems:
+  elastic:

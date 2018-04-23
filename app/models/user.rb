@@ -17,6 +17,12 @@ class User < ApplicationRecord
 
   mount_base64_uploader :photo, PhotoUploader
 
+  searchkick
+
+  def search_data
+    { name: name, email: email }
+  end  
+
   def timeline
     timeline = tweets.map { |tweet| tweet }
     all_following.each do |user|
