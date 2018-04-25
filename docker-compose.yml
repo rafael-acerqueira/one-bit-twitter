@@ -26,7 +26,21 @@ services:
       - .:/onebittwitter
       - app-gems:/app-gems
     environment:
-      ELASTICSEARCH_URL: elasticsearch:9200      
+      ELASTICSEARCH_URL: elasticsearch:9200
+
+  jobs:
+    depends_on:
+      - "postgres"
+      - "redis"
+      - "app"
+      - "elasticsearch"
+    build: .
+    command: bash start_jobs.sh
+    volumes:
+      - .:/onebittwitter
+      - app-gems:/app-gems
+    environment:
+      ELASTICSEARCH_URL: elasticsearch:9200
 
   elasticsearch:
     image: "elasticsearch:5"
@@ -36,6 +50,7 @@ services:
       - elastic:/usr/share/elasticsearch/data
     environment:
       - Des.network.host=0.0.0.0
+
 volumes:
   redis:
   postgres:
