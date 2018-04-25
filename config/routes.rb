@@ -2,10 +2,17 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  namespace :api do
+    namespace :v1 do
+      get 'trending/index'
+    end
+  end
+
   mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     namespace :v1 do
+      get 'trending', to: 'trending#index'
       post 'user_token', to: 'user_token#create'
       get 'search', to: 'search#index'
       get 'autocomplete', to: 'search#autocomplete'
