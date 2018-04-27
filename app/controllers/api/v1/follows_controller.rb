@@ -14,7 +14,7 @@ module Api
 
       def destroy
         if current_user.stop_following(@user)
-          render json: { msg: 'User unfollowed with success' }
+          render json: { msg: 'User unfollowed with success' }, status: :no_content
         else
           render json: { errors: 'Problems to unfollow user' }, status: :unprocessable_entity
         end
