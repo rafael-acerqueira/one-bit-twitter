@@ -17,11 +17,11 @@ class User < ApplicationRecord
 
   mount_base64_uploader :photo, PhotoUploader
 
-  searchkick
+  searchkick word_start: [:name, :email]
 
   def search_data
     { name: name, email: email }
-  end  
+  end
 
   def timeline
     timeline = tweets.map { |tweet| tweet }
