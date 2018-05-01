@@ -29,7 +29,12 @@ RSpec.describe "Api::V1::Tweets", type: :request do
         expect(json.count).to eql(remaining)
       end
 
-      # Verifique se os tweets que são retweets possuem os tweets originais associados
+      it "check whether returns tweet_original_id when this tweet is a retweet" do
+        tweet =  create(:tweet, user: user)
+        retweet = create(:tweet, user: user, tweet_original: tweet)
+        get "/api/v1/tweets?user_id=#{user.id}&page=2", headers: header_with_authentication(user)
+        expect(json.select{|result| result['tweet_original_id'] == tweet.id}[0]).to eql(serialized(Api::V1::TweetSerializer, retweet))
+      end
     end
 
     context 'User dont exist' do
